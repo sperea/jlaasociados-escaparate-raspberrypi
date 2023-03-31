@@ -1,7 +1,7 @@
 import os
 import sys
 import argparse
-from lib.media_viewer import MediaViewer
+from utils.media_viewer import MediaViewer
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Showcase Media Viewer. version 1.0. Run: %(prog)s. Written by Sergio Perea (https://sperea.es)")

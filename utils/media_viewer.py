@@ -3,8 +3,9 @@ import os.path
 import tkinter as tk
 from PIL import Image, ImageTk
 import time
-from lib.media_handler import ImageHandler, VideoHandler
-from extensions import ImageExtensions, VideoExtensions
+from utils.media_handler import ImageHandler, VideoHandler
+from utils.extensions import ImageExtensions, VideoExtensions
+import cv2
 
 class MediaViewer:
     def __init__(self, media_folder, image_time=2):
@@ -24,7 +25,6 @@ class MediaViewer:
 
         self.window.bind("<Escape>", self.exit_program)
         self.window.after(0, self.show_media)
-        #self.window.after(self.image_time * 1000, self.show_media)
         self.window_open = True 
         self.window.mainloop()
         
