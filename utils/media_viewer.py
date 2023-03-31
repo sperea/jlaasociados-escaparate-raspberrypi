@@ -1,11 +1,16 @@
 import os
 import os.path
 import tkinter as tk
-from PIL import Image, ImageTk
 import time
-from utils.media_handler import ImageHandler, VideoHandler
-from utils.extensions import ImageExtensions, VideoExtensions
 import cv2
+from PIL import ImageTk
+from PIL import Image
+from utils.media_handler import ImageHandler
+from utils.media_handler import VideoHandler
+from utils.extensions import ImageExtensions
+from utils.extensions import VideoExtensions
+
+
 
 class MediaViewer:
     def __init__(self, media_folder, image_time=2):

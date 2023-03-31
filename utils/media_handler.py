@@ -1,8 +1,9 @@
-from abc import ABC, abstractmethod
-from PIL import Image, ImageTk
-import cv2
-import time
 import tkinter as tk
+from abc import ABC
+from abc import abstractmethod
+import cv2
+from PIL import Image
+from PIL import ImageTk
 
 
 class MediaHandler(ABC):
@@ -57,8 +58,8 @@ class VideoHandler:
                 image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
                 image = self.resize_image_func(image, width, height)
 
-                if window.winfo_exists() == 0:  # Añade esta línea
-                    break  # Añade esta línea
+                if window.winfo_exists() == 0:
+                    break
 
                 img_object = ImageTk.PhotoImage(image)
 
