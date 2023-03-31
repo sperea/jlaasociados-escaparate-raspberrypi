@@ -31,9 +31,10 @@ To start Media Viewer, run the following command:
 python start.py --media-dir /path/to/media --image-time 5 
 
 
-* `--media-dir`: the path to the directory containing the media files.
-* `--image-time`: the time (in seconds) for displaying each image. Default is 5 seconds.
-/help: show help
+* `--p`: the path to the directory containing the media files.
+* `--t`: the time (in seconds) for displaying each image. Default is 5 seconds.
+* `--h`: show help
+* `--h`: show version
 
 *Press Esc to exit the application.*
 
