@@ -103,7 +103,7 @@ class MediaViewer:
             if ImageExtensions.contains(file_extension):
                 self.image_handler.show(file_path, self.canvas, self.window, self.window_width, self.window_height)
             elif VideoExtensions.contains(file_extension):
-                self.video_handler.show(file_path, self.canvas, self.window, self.window_width, self.window_height, self.window_open)
+                self.video_handler.show(file_path, self.canvas, self.window, self.window_width, self.window_height)
 
             self.index += 1
             
