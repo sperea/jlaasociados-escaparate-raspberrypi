@@ -19,13 +19,17 @@ class MediaViewerGUI:
         self.canvas = tk.Canvas(self.window, width=self.window_width, height=self.window_height, bg="black")
         self.canvas.pack()
 
-        self.window.bind("<Escape>", self.exit_program)
+        self.window.bind("<Escape>", self.on_escape_key_pressed)
         self.window.after(0, self.show_media)
         self.window_open = True
         self.window.mainloop()
 
     def exit_program(self, event):
-        self.window.destroy()
+            self.window_open = False
+            self.window.destroy()
+
+    def on_escape_key_pressed(self, event):
+        self.exit_program(event)
 
     def show_media(self):
         media_files = self.controller.get_media_files()
@@ -45,7 +49,8 @@ class MediaViewerGUI:
                 self.show_video(file_path)
 
             self.index += 1
-            self.window.after(self.controller.image_time * 1000, self.window.update())
+            if self.window_open:
+                self.window.after(self.controller.image_time * 1000, self.window.update())
 
     def resize_image(self, image, max_width, max_height):
         width_ratio = max_width / image.width
@@ -55,7 +60,7 @@ class MediaViewerGUI:
         new_width = int(image.width * min_ratio)
         new_height = int(image.height * min_ratio)
 
-        return image.resize((new_width, new_height), Image.ANTIALIAS)
+        return image.resize((new_width, new_height), Image.LANCZOS)
 
     def show_image(self, image_path):
         image = Image.open(image_path)

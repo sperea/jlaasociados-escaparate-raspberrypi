@@ -43,7 +43,7 @@ class MediaController:
         new_width = int(image.width * min_ratio)
         new_height = int(image.height * min_ratio)
 
-        return image.resize((new_width, new_height), Image.ANTIALIAS)
+        return image.resize((new_width, new_height), Image.LANCZOS)
 
     def get_media_files(self):
         media_files = []
