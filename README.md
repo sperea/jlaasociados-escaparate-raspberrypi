@@ -28,8 +28,8 @@ pip install -r requirements.txt
 To start Media Viewer, run the following command:
 
 ``
-python start.py --media-dir /path/to/media --image-time 5 
-
+python start.py --p /path/to/media --t 5 
+``
 
 * `--p`: the path to the directory containing the media files.
 * `--t`: the time (in seconds) for displaying each image. Default is 5 seconds.
