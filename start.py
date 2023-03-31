@@ -1,7 +1,7 @@
 import os
 import sys
 import argparse
-from utils.media_viewer import MediaViewer
+from application.gui.media_viewer_gui import MediaViewerGUI 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Showcase Media Viewer. version 1.0. Run: %(prog)s. Written by Sergio Perea (https://sperea.es)")
@@ -20,6 +20,6 @@ if __name__ == "__main__":
         print(f"Media folder: {args.p}")
         print(f"Image time: {args.t}")
         print("Press ESC to finish")
-        viewer = MediaViewer(args.p, image_time=args.t)
+        viewer = MediaViewerGUI(args.p, image_time=args.t)
     else:
         print("The 'media' folder is not in the same directory as the script.")
