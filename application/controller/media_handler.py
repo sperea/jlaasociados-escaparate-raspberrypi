@@ -5,6 +5,9 @@ import cv2
 from PIL import Image
 from PIL import ImageTk
 
+class MediaHandlerError(Exception):
+    pass
+
 
 class MediaHandler(ABC):
     @abstractmethod
@@ -33,9 +36,9 @@ class ImageHandler:
             canvas.create_image(width // 2, height // 2, image=img_object)
             canvas.image = img_object
             window.update()
-        except:
-            print("Execution canceled by user")
-            exit()
+        except FileNotFoundError:
+            print("File not found:", file_path)
+            raise MediaHandlerError("File not found")
 
 
 class VideoHandler:
