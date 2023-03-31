@@ -51,9 +51,8 @@ class MediaViewer:
         image = Image.open(image_path)
         image = self.resize_image(image, self.window_width, self.window_height)
         img_object = ImageTk.PhotoImage(image)
-
         self.canvas.delete("all")
-        self.canvas.create_image(self.window_width // 2, self.window_height // 2, image=img_object, anchor=tk.CENTER)
+        self.canvas.create_image(self.window_width // 2, 0, image=img_object, anchor=(tk.CENTER, tk.NW))
         self.window.update()
 
     def show_video(self, video_path):
@@ -70,7 +69,7 @@ class MediaViewer:
             img_object = ImageTk.PhotoImage(image)
 
             self.canvas.delete("all")
-            self.canvas.create_image(self.window_width // 2, self.window_height // 2, image=img_object, anchor=tk.CENTER)
+            self.canvas.create_image(self.window_width // 2, 0, image=img_object, anchor=(tk.CENTER, tk.NW))
             self.window.update()
 
             time.sleep(0.03)
