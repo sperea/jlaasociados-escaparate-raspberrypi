@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
 from PIL import Image
-from media_handler import MediaHandler, ImageHandler, VideoHandler
+from lib.media_handler import MediaHandler, ImageHandler, VideoHandler
 
 
 class DummyCanvas:
