@@ -13,9 +13,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     script_path = os.path.dirname(os.path.abspath(sys.argv[0]))
-    media_folder = os.path.join(script_path, args.media_folder)
+    media_folder = os.path.join(script_path, args.p)
 
     if os.path.exists(media_folder):
-        viewer = MediaViewer(media_folder, image_time=args.image_time)
+        viewer = MediaViewer(args.p, image_time=args.t)
     else:
         print("The 'media' folder is not in the same directory as the script.")
