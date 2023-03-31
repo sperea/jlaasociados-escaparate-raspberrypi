@@ -16,6 +16,10 @@ if __name__ == "__main__":
     media_folder = os.path.join(script_path, args.p)
 
     if os.path.exists(media_folder):
+        print("Running with the following parameters:")
+        print(f"Media folder: {args.p}")
+        print(f"Image time: {args.t}")
+        print("Press ESC to finish")
         viewer = MediaViewer(args.p, image_time=args.t)
     else:
         print("The 'media' folder is not in the same directory as the script.")
