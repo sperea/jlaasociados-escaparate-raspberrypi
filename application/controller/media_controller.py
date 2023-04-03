@@ -1,26 +1,13 @@
 # media_controller.py
 
-import os
-import os.path
 import time
+import os
 from PIL import Image
 from application.controller.media_handler import ImageHandler
 from application.controller.media_handler import VideoHandler
+from application.infrastructure.local_storage import LocalImageStorage 
+from application.infrastructure.local_storage import LocalVideoStorage
 
-class ImageExtensions:
-    EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif"}
-
-    @classmethod
-    def contains(cls, extension):
-        return extension.lower() in cls.EXTENSIONS
-
-
-class VideoExtensions:
-    EXTENSIONS = {".mp4", ".mkv", ".avi", ".mov"}
-
-    @classmethod
-    def contains(cls, extension):
-        return extension.lower() in cls.EXTENSIONS
 
 class MediaController:
     def __init__(self, media_folder, image_time=2):
@@ -28,6 +15,8 @@ class MediaController:
         self.image_time = image_time
         self.image_handler = ImageHandler(self.resize_image)
         self.video_handler = VideoHandler(self.resize_image)
+        self.image_storage = LocalImageStorage()
+        self.video_storage = LocalVideoStorage()
 
     @staticmethod
     def get_file_extension(file_path):
@@ -47,14 +36,8 @@ class MediaController:
 
     def get_media_files(self):
         media_files = []
-
-        for root, _, files in os.walk(self.media_folder):
-            for file in files:
-                file_path = os.path.join(root, file)
-                file_extension = self.get_file_extension(file_path)
-
-                if ImageExtensions.contains(file_extension) or VideoExtensions.contains(file_extension):
-                    media_files.append(file_path)
+        media_files.extend(self.image_storage.get_media_files(self.media_folder))
+        media_files.extend(self.video_storage.get_media_files(self.media_folder))
 
         return media_files
 
@@ -67,12 +50,7 @@ class MediaController:
                 self.index = 0
 
             file_path = media_files[self.index]
-            file_extension = self.get_file_extension(file_path)
+            file_extension = os.path.splitext(file_path)[1]
 
-            if ImageExtensions.contains(file_extension):
+            if LocalImageStorage.contains(file_extension):
                 self.image_handler.show(file_path)
-            elif VideoExtensions.contains(file_extension):
-                self.video_handler.show(file_path)
-
-            self.index += 1
-            time.sleep(self.image_time)

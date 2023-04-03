@@ -3,8 +3,8 @@ import tempfile
 import pytest
 from PIL import Image
 from application.controller.media_controller import MediaController 
-from application.controller.media_controller import ImageExtensions
-from application.controller.media_controller import VideoExtensions
+from application.infrastructure.local_storage import ImageExtensions
+from application.infrastructure.local_storage import VideoExtensions
 
 @pytest.fixture
 def sample_media():

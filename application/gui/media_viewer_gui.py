@@ -4,8 +4,8 @@ from PIL import Image
 import time
 import cv2
 from application.controller.media_controller import MediaController
-from application.controller.media_controller import VideoExtensions
-from application.controller.media_controller import ImageExtensions
+from application.infrastructure.local_storage import VideoExtensions
+from application.infrastructure.local_storage import ImageExtensions
 
 class MediaViewerGUI:
     def __init__(self, media_folder, image_time=2):
