@@ -3,11 +3,12 @@
 import time
 import os
 from PIL import Image
-from application.controller.media_handler import ImageHandler
-from application.controller.media_handler import VideoHandler
+from application.gui.media_handler import ImageHandler
+from application.gui.media_handler import VideoHandler
 from application.infrastructure.local_storage import LocalImageStorage 
 from application.infrastructure.local_storage import LocalVideoStorage
-
+from application.infrastructure.local_storage import VideoExtensions
+from application.infrastructure.local_storage import ImageExtensions
 
 class MediaController:
     def __init__(self, media_folder, image_time=2):
@@ -17,6 +18,14 @@ class MediaController:
         self.video_handler = VideoHandler(self.resize_image)
         self.image_storage = LocalImageStorage()
         self.video_storage = LocalVideoStorage()
+
+    @staticmethod
+    def is_image_extension(file_extension):
+        return ImageExtensions.contains(file_extension)
+
+    @staticmethod
+    def is_video_extension(file_extension):
+        return VideoExtensions.contains(file_extension)
 
     @staticmethod
     def get_file_extension(file_path):
@@ -35,22 +44,22 @@ class MediaController:
         return image.resize((new_width, new_height), Image.LANCZOS)
 
     def get_media_files(self):
-        media_files = []
-        media_files.extend(self.image_storage.get_media_files(self.media_folder))
-        media_files.extend(self.video_storage.get_media_files(self.media_folder))
-
+        media_files = self.image_storage.get_media_files(self.media_folder) + self.video_storage.get_media_files(self.media_folder)
         return media_files
 
     def show_media(self):
         media_files = self.get_media_files()
-        self.index = 0
+        index = 0
 
         while True:
-            if self.index >= len(media_files):
-                self.index = 0
+            if index >= len(media_files):
+                index = 0
 
-            file_path = media_files[self.index]
+            file_path = media_files[index]
             file_extension = os.path.splitext(file_path)[1]
 
             if LocalImageStorage.contains(file_extension):
                 self.image_handler.show(file_path)
+
+            index += 1
+            time.sleep(self.image_time)

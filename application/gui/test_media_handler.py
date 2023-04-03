@@ -5,7 +5,7 @@ from PIL import Image
 from io import BytesIO
 import cv2
 import numpy as np
-from application.controller.media_handler import ImageHandler, MediaHandlerError, VideoHandler
+from application.gui.media_handler import ImageHandler, MediaHandlerError, VideoHandler
 
 # Función de redimensionamiento de imagen simple
 def resize_image(image, width, height):

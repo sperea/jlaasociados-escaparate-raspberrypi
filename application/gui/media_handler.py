@@ -1,9 +1,8 @@
 import tkinter as tk
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 import cv2
-from PIL import Image
-from PIL import ImageTk
+from PIL import Image, ImageTk
+
 
 class MediaHandlerError(Exception):
     pass
@@ -15,12 +14,14 @@ class MediaHandler(ABC):
         pass
 
 
-class ImageHandler:
+class ImageHandler(MediaHandler):
     def __init__(self, resize_image_func):
         self.resize_image_func = resize_image_func
 
     def show(self, file_path, canvas, window, width, height):
+        self.display_image(file_path, canvas, window, width, height)
 
+    def display_image(self, file_path, canvas, window, width, height):
         try:
             if window is None or not isinstance(window, tk.Tk) or not window.winfo_exists():
                 return
@@ -41,12 +42,14 @@ class ImageHandler:
             raise MediaHandlerError("File not found")
 
 
-class VideoHandler:
+class VideoHandler(MediaHandler):
     def __init__(self, resize_image_func):
         self.resize_image_func = resize_image_func
 
     def show(self, file_path, canvas, window, width, height):
+        self.play_video(file_path, canvas, window, width, height)
 
+    def play_video(self, file_path, canvas, window, width, height):
         try:
             if window is None or not isinstance(window, tk.Tk) or not window.winfo_exists():
                 return

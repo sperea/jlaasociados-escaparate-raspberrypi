@@ -1,28 +1,23 @@
-# local_media_storage.py
-
 import os
 from application.infrastructure.media_storage import MediaStorage
 
 
-class ImageExtensions:
+class MediaTypeExtensions:
+    @classmethod
+    def contains(cls, extension):
+        return extension.lower() in cls.EXTENSIONS
+
+
+class ImageExtensions(MediaTypeExtensions):
     EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif"}
 
-    @classmethod
-    def contains(cls, extension):
-        return extension.lower() in cls.EXTENSIONS
 
-
-class VideoExtensions:
+class VideoExtensions(MediaTypeExtensions):
     EXTENSIONS = {".mp4", ".mkv", ".avi", ".mov"}
 
-    @classmethod
-    def contains(cls, extension):
-        return extension.lower() in cls.EXTENSIONS
 
-
-class LocalImageStorage(MediaStorage):
-
-    def get_media_files(self, folder):
+class LocalMediaStorage(MediaStorage):
+    def get_media_files(self, folder, extensions):
         media_files = []
 
         for root, _, files in os.walk(folder):
@@ -30,23 +25,17 @@ class LocalImageStorage(MediaStorage):
                 file_path = os.path.join(root, file)
                 file_extension = os.path.splitext(file_path)[1]
 
-                if ImageExtensions.contains(file_extension):
+                if extensions.contains(file_extension):
                     media_files.append(file_path)
 
         return media_files
 
 
-class LocalVideoStorage(MediaStorage):
-
+class LocalImageStorage(LocalMediaStorage):
     def get_media_files(self, folder):
-        media_files = []
+        return super().get_media_files(folder, ImageExtensions)
 
-        for root, _, files in os.walk(folder):
-            for file in files:
-                file_path = os.path.join(root, file)
-                file_extension = os.path.splitext(file_path)[1]
 
-                if VideoExtensions.contains(file_extension):
-                    media_files.append(file_path)
-
-        return media_files
+class LocalVideoStorage(LocalMediaStorage):
+    def get_media_files(self, folder):
+        return super().get_media_files(folder, VideoExtensions)

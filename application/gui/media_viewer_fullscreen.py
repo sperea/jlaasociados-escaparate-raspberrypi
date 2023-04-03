@@ -4,8 +4,7 @@ from PIL import Image
 import time
 import cv2
 from application.controller.media_controller import MediaController
-from application.infrastructure.local_storage import VideoExtensions
-from application.infrastructure.local_storage import ImageExtensions
+
 
 class MediaViewerGUI:
     def __init__(self, media_folder, image_time=2):
@@ -43,14 +42,15 @@ class MediaViewerGUI:
             file_path = media_files[self.index]
             file_extension = self.controller.get_file_extension(file_path)
 
-            if ImageExtensions.contains(file_extension):
+            if self.controller.is_image_extension(file_extension):
                 self.show_image(file_path)
-            elif VideoExtensions.contains(file_extension):
+            elif self.controller.is_video_extension(file_extension):
                 self.show_video(file_path)
 
             self.index += 1
             if self.window_open:
                 self.window.after(self.controller.image_time * 1000, self.window.update())
+
 
     def resize_image(self, image, max_width, max_height):
         width_ratio = max_width / image.width
