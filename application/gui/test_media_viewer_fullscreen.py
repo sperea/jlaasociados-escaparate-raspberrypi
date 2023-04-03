@@ -4,7 +4,7 @@ import pytest
 import unittest
 from unittest.mock import MagicMock
 from PIL import Image
-from application.gui.media_viewer_gui import MediaViewerGUI
+from application.gui.media_viewer_fullscreen import MediaViewerGUI
 import unittest.mock
 
 @pytest.fixture
